@@ -2,22 +2,23 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/julienschmidt/httprouter"
 )
 
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
+func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprint(w, "<h1> Home. Welcome! </h1>")
 }
 
-func ContactsHandler(w http.ResponseWriter, r *http.Request) {
+func ContactsHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprint(w, "<h1> Contact page </h1>")
 }
 
-func FaqHandler(w http.ResponseWriter, r *http.Request) {
+func FaqHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprint(w, "<h1> FAQ </h1>")
 }
@@ -29,10 +30,11 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler)
-	r.HandleFunc("/contacts", ContactsHandler)
-	r.HandleFunc("/faq", FaqHandler)
-	r.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
-	http.ListenAndServe(":3000", r)
+	router := httprouter.New()
+	router.GET("/", HomeHandler)
+	router.GET("/contacts", ContactsHandler)
+	router.GET("/faq", FaqHandler)
+	router.NotFound = http.HandlerFunc(NotFoundHandler)
+
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
