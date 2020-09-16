@@ -41,11 +41,11 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	//add something
 	var err error
-	homeTemplate, err = template.ParseFiles("views/home.gohtml")
+	homeTemplate, err = template.ParseFiles("views/home.gohtml", "views/footer.gohtml")
 	if err != nil {
 		panic(err)
 	}
-	contactTemplate, err = template.ParseFiles("views/contact.gohtml")
+	contactTemplate, err = template.ParseFiles("views/contact.gohtml", "views/footer.gohtml")
 	if err != nil {
 		panic(err)
 	}
