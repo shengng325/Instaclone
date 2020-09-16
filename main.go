@@ -30,6 +30,7 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	//add something
 	router := httprouter.New()
 	router.GET("/", HomeHandler)
 	router.GET("/contacts", ContactsHandler)
