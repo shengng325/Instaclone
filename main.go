@@ -10,6 +10,7 @@ import (
 )
 
 var homeTemplate *template.Template
+var contactTemplate *template.Template
 
 func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
@@ -20,7 +21,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func ContactsHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1> Contact page </h1>")
+	if err := contactTemplate.Execute(w, nil); err != nil {
+		panic(err)
+	}
+
 }
 
 func FaqHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -38,6 +42,10 @@ func main() {
 	//add something
 	var err error
 	homeTemplate, err = template.ParseFiles("views/home.gohtml")
+	if err != nil {
+		panic(err)
+	}
+	contactTemplate, err = template.ParseFiles("views/contact.gohtml")
 	if err != nil {
 		panic(err)
 	}
