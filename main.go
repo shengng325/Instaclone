@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"text/template"
 
 	"github.com/julienschmidt/httprouter"
 )
 
+var homeTemplate *template.Template
+
 func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1> Home. Welcome! </h1>")
+	if err := homeTemplate.Execute(w, nil); err != nil {
+		panic(err)
+	}
 }
 
 func ContactsHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -31,6 +36,11 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	//add something
+	var err error
+	homeTemplate, err = template.ParseFiles("views/home.gohtml")
+	if err != nil {
+		panic(err)
+	}
 	router := httprouter.New()
 	router.GET("/", HomeHandler)
 	router.GET("/contacts", ContactsHandler)
