@@ -46,7 +46,7 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/", HomeHandler)
-	router.GET("/contacts", ContactsHandler)
+	router.GET("/contact", ContactsHandler)
 	router.GET("/faq", FaqHandler)
 	router.NotFound = http.HandlerFunc(NotFoundHandler)
 
