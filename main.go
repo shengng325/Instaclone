@@ -14,19 +14,13 @@ var contactView *views.View
 
 func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
-	err := homeView.Templates.ExecuteTemplate(w, homeView.Layout, nil)
-	if err != nil {
-		panic(err)
-	}
+	must(homeView.Render(w, nil))
+
 }
 
 func ContactsHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
-	err := contactView.Templates.ExecuteTemplate(w, contactView.Layout, nil)
-	if err != nil {
-		panic(err)
-	}
-
+	must(contactView.Render(w, nil))
 }
 
 func FaqHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -51,4 +45,10 @@ func main() {
 	router.NotFound = http.HandlerFunc(NotFoundHandler)
 
 	log.Fatal(http.ListenAndServe(":3000", router))
+}
+
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
 }

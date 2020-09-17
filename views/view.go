@@ -2,6 +2,7 @@ package views
 
 import (
 	"html/template"
+	"net/http"
 	"path/filepath"
 )
 
@@ -11,8 +12,12 @@ var (
 )
 
 type View struct {
-	Templates *template.Template
-	Layout    string
+	Template *template.Template
+	Layout   string
+}
+
+func (v *View) Render(w http.ResponseWriter, data interface{}) error {
+	return v.Template.ExecuteTemplate(w, v.Layout, data)
 }
 
 func NewView(layout string, files ...string) *View {
@@ -22,8 +27,8 @@ func NewView(layout string, files ...string) *View {
 		panic(err)
 	}
 	newView := &View{
-		Templates: t,
-		Layout:    layout,
+		Template: t,
+		Layout:   layout,
 	}
 	return newView
 }
