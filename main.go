@@ -14,7 +14,7 @@ var contactView *views.View
 
 func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
-	err := homeView.Template.Execute(w, nil)
+	err := homeView.Templates.ExecuteTemplate(w, homeView.Layout, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +22,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func ContactsHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "text/html")
-	err := contactView.Template.Execute(w, nil)
+	err := contactView.Templates.ExecuteTemplate(w, contactView.Layout, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -41,8 +41,8 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	homeView = views.NewView("views/home.gohtml")
-	contactView = views.NewView("views/contact.gohtml")
+	homeView = views.NewView("bootstrap", "views/home.gohtml")
+	contactView = views.NewView("bootstrap", "views/contact.gohtml")
 
 	router := httprouter.New()
 	router.GET("/", HomeHandler)
