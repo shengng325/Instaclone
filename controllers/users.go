@@ -39,7 +39,10 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	var form SignupForm
 	dec := schema.NewDecoder()
-	dec.Decode(&form, r.PostForm)
+	err := dec.Decode(&form, r.PostForm)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Fprintln(w, form)
 
 }
