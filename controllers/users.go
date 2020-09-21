@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/schema"
-
 	"lenslocked.com/views"
 )
 
@@ -33,13 +31,8 @@ type SignupForm struct {
 }
 
 func (u *User) Create(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		panic(err)
-	}
 	var form SignupForm
-	dec := schema.NewDecoder()
-	err := dec.Decode(&form, r.PostForm)
+	err := parseForm(r, &form)
 	if err != nil {
 		panic(err)
 	}
