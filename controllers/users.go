@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"lenslocked.com/views"
@@ -22,4 +23,8 @@ func (u *User) Handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (u *User) Create(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Temp response")
 }
