@@ -7,22 +7,21 @@ import (
 	"github.com/gorilla/mux"
 
 	"lenslocked.com/controllers"
-	"lenslocked.com/views"
 )
 
-var homeView *views.View
-var contactView *views.View
+// var homeView *views.View
+// var contactView *views.View
 
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	must(homeView.Render(w, nil))
+// func HomeHandler(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html")
+// 	must(homeView.Render(w, nil))
 
-}
+// }
 
-func ContactsHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	must(contactView.Render(w, nil))
-}
+// func ContactsHandler(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html")
+// 	must(contactView.Render(w, nil))
+// }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -31,13 +30,16 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	homeView = views.NewView("bootstrap", "views/home.gohtml")
-	contactView = views.NewView("bootstrap", "views/contact.gohtml")
+	// homeView = views.NewView("bootstrap", "views/home.gohtml")
+	// contactView = views.NewView("bootstrap", "views/contact.gohtml")
+	staticC := controllers.NewStatic()
 	usersC := controllers.InitUser()
 
 	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler).Methods("GET")
-	r.HandleFunc("/contact", ContactsHandler).Methods("GET")
+	r.Handle("/", staticC.Home).Methods("GET")
+	//r.HandleFunc("/", HomeHandler).Methods("GET")
+	r.Handle("/contact", staticC.Contact).Methods("GET")
+	//r.HandleFunc("/contact", ContactsHandler).Methods("GET")
 	r.HandleFunc("/signup", usersC.Handler).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	r.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
