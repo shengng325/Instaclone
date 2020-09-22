@@ -12,3 +12,5 @@ CREATE TABLE orders (
 );
 
 SELECT * FROM users
+
+INSERT INTO users (name, email) VALUES ('nts4', 'nts@gmailcom');
