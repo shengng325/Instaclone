@@ -11,6 +11,6 @@ CREATE TABLE orders (
     description TEXT
 );
 
-SELECT * FROM users
+SELECT * FROM users;
 
 INSERT INTO users (name, email) VALUES ('nts4', 'nts@gmailcom');
