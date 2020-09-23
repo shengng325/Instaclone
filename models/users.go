@@ -84,9 +84,21 @@ func (us *UserService) Delete(id uint) error {
 }
 
 //DestructiveReset Drop and auto migrate, only for dev
-func (us *UserService) DestructiveReset() {
-	us.db.DropTableIfExists(&User{})
-	us.db.AutoMigrate(&User{})
+func (us *UserService) DestructiveReset() error {
+	err := us.db.DropTableIfExists(&User{}).Error
+	if err != nil {
+		return err
+	}
+	return us.AutoMigrate()
+}
+
+//AutoMigrate will auto migrate the users table
+func (us *UserService) AutoMigrate() error {
+	err := us.db.AutoMigrate(&User{}).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 //Close for close at the end. Should call with defer

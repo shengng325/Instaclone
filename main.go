@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 
 	"lenslocked.com/controllers"
+	"lenslocked.com/models"
 )
 
 // var homeView *views.View
@@ -29,20 +30,36 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "<h1> 404 NOT FOUND!!! </h1>")
 }
 
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "postgres"
+	password = "1234"
+	dbname   = "postgres"
+)
+
 func main() {
-	// homeView = views.NewView("bootstrap", "views/home.gohtml")
-	// contactView = views.NewView("bootstrap", "views/contact.gohtml")
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+	us, err := models.NewUserService(psqlInfo)
+	if err != nil {
+		panic(err)
+	}
+	defer us.Close()
+	us.AutoMigrate()
+
 	staticC := controllers.NewStatic()
-	usersC := controllers.InitUser()
+	usersC := controllers.InitUser(us)
 
 	r := mux.NewRouter()
 	r.Handle("/", staticC.Home).Methods("GET")
-	//r.HandleFunc("/", HomeHandler).Methods("GET")
 	r.Handle("/contact", staticC.Contact).Methods("GET")
-	//r.HandleFunc("/contact", ContactsHandler).Methods("GET")
 	r.HandleFunc("/signup", usersC.Handler).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	r.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
+
+	fmt.Println("Server running at :3000")
 	http.ListenAndServe(":3000", r)
 }
 
