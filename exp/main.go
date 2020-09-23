@@ -33,20 +33,31 @@ func main() {
 	}
 	defer us.Close()
 
-	user := models.User{
-		Name:  "NTSSSSS",
-		Email: "ntsss@mail.com",
-	}
-	err = us.Create(&user)
-	if err != nil {
-		panic(err)
-	}
-
-	//us.DestructiveReset()
-	// user, err := us.ByID(1)
+	// user := models.User{
+	// 	Name:  "NTSSSSS",
+	// 	Email: "ntsss@gmail.com",
+	// }
+	// err = us.Create(&user)
 	// if err != nil {
 	// 	panic(err)
 	// }
-	fmt.Println(user)
+	// user.Email = "changed@gmail.com"
+	// us.Update(&user)
 
+	//us.DestructiveReset()
+	u, err := us.ByID(1)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(u)
+	uEmail, err := us.ByEmail("ntsss@mail.com")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(uEmail)
+
+	err = us.Delete(5)
+	if err != nil {
+		panic(err)
+	}
 }
