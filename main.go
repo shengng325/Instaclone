@@ -56,8 +56,10 @@ func main() {
 	r := mux.NewRouter()
 	r.Handle("/", staticC.Home).Methods("GET")
 	r.Handle("/contact", staticC.Contact).Methods("GET")
-	r.HandleFunc("/signup", usersC.Handler).Methods("GET")
+	r.Handle("/signup", usersC.NewView).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
+	r.Handle("/login", usersC.LoginView).Methods("GET")
+	r.HandleFunc("/login", usersC.Create).Methods("POST")
 	r.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 
 	fmt.Println("Server running at :3000")
