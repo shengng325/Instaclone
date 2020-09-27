@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"lenslocked.com/models"
+	"lenslocked.com/rand"
 	"lenslocked.com/views"
 )
 
@@ -52,7 +53,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	signIn(w, &user)
+	u.signIn(w, &user)
 	fmt.Fprintln(w, user)
 
 }
@@ -83,24 +84,42 @@ func (u *User) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signIn(w, user)
+	u.signIn(w, user)
 	fmt.Fprintln(w, user)
 }
 
-func signIn(w http.ResponseWriter, user *models.User) {
+func (u *User) signIn(w http.ResponseWriter, user *models.User) error {
+	if user.Remember == "" {
+		token, err := rand.RememberToken()
+		if err != nil {
+			return err
+		}
+		user.Remember = token
+		err = u.us.Update(user)
+		if err != nil {
+			return err
+		}
+	}
 	cookie := http.Cookie{
-		Name:  "email",
-		Value: user.Email,
+		Name:     "remember_token",
+		Value:    user.Remember,
+		HttpOnly: true,
 	}
 	http.SetCookie(w, &cookie)
+	return nil
 }
 
 //CookieTest display cookies set
 func (u *User) CookieTest(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie("email")
+	cookie, err := r.Cookie("remember_token")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintln(w, "Email is", cookie.Value)
+	user, err := u.us.ByRemember(cookie.Value)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	fmt.Fprintln(w, user)
 }
