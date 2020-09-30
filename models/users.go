@@ -155,9 +155,13 @@ func (uv *userValidator) Update(user *User) error {
 
 //Delete US
 func (uv *userValidator) Delete(id uint) error {
-	if id == 0 {
-		return InvalidIdError
+	var user User
+	user.ID = id
+	err := runValidatorFunc(&user, uv.idGreaterThan(0))
+	if err != nil {
+		return err
 	}
+
 	return uv.UserDB.Delete(id)
 }
 
@@ -193,6 +197,17 @@ func (uv *userValidator) setRememberIfUnset(user *User) error {
 	}
 	user.Remember = token
 	return nil
+}
+
+//Delete US
+func (uv *userValidator) idGreaterThan(n uint) validatorFunc {
+	fn := validatorFunc(func(user *User) error {
+		if user.ID <= n {
+			return InvalidIdError
+		}
+		return nil
+	})
+	return fn
 }
 
 var _ UserDB = &userGorm{}
