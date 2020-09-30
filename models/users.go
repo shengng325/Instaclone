@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"regexp"
 	"strings"
 
 	"golang.org/x/crypto/bcrypt"
@@ -13,10 +14,13 @@ import (
 )
 
 var (
-	NotFoundError        = errors.New("model: resource not found")
+	NotFoundError        = errors.New("models: resource not found")
 	InvalidIdError       = errors.New("models: ID provided was invalid")
 	InvalidPasswordError = errors.New("models: incorrect password provided")
 	//InvalidEmailError = errors.New("models: incorrect email address provided")
+	ErrEmailRequired = errors.New("models: email address is required")
+	ErrEmailInvalid  = errors.New("models: email address is invalid")
+	ErrEmailTaken    = errors.New("models:Email is already taken")
 )
 
 const userPwPepper = "secret-random-string"
@@ -71,10 +75,7 @@ func NewUserService(connectionInfo string) (UserService, error) {
 	// newDb.LogMode(true)
 	// hmac := hash.NewHMAC(hmacSecretKey)
 	hmac := hash.NewHMAC(hmacSecretKey)
-	uv := &userValidator{
-		hmac:   hmac,
-		UserDB: ug,
-	}
+	uv := newUserValidator(ug, hmac)
 	us := &userService{
 		UserDB: uv,
 	}
@@ -123,7 +124,16 @@ var _ UserDB = &userValidator{}
 //userValidator struct
 type userValidator struct {
 	UserDB
-	hmac hash.HMAC
+	hmac       hash.HMAC
+	emailRegex *regexp.Regexp
+}
+
+func newUserValidator(udb UserDB, hmac hash.HMAC) *userValidator {
+	return &userValidator{
+		UserDB:     udb,
+		hmac:       hmac,
+		emailRegex: regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,16}$`),
+	}
 }
 
 func (uv *userValidator) ByEmail(email string) (*User, error) {
@@ -155,7 +165,9 @@ func (uv *userValidator) Create(user *User) error {
 		uv.setRememberIfUnset,
 		uv.hmacRemember,
 		uv.normalizeEmail,
-		uv.requireEmail)
+		uv.requireEmail,
+		uv.emailFormat,
+		uv.emailIsAvailable)
 	if err != nil {
 		return err
 	}
@@ -167,7 +179,9 @@ func (uv *userValidator) Update(user *User) error {
 		uv.bcryptPassword,
 		uv.hmacRemember,
 		uv.normalizeEmail,
-		uv.requireEmail)
+		uv.requireEmail,
+		uv.emailFormat,
+		uv.emailIsAvailable)
 	if err != nil {
 		return err
 	}
@@ -239,10 +253,31 @@ func (uv *userValidator) normalizeEmail(user *User) error {
 
 func (uv *userValidator) requireEmail(user *User) error {
 	if user.Email == "" {
-		return errors.New("Email address is required")
+		return ErrEmailRequired
 	}
 	user.Email = strings.ToLower(user.Email)
 	user.Email = strings.TrimSpace(user.Email)
+	return nil
+}
+
+func (uv *userValidator) emailFormat(user *User) error {
+	if !uv.emailRegex.MatchString(user.Email) {
+		return ErrEmailInvalid
+	}
+	return nil
+}
+
+func (uv *userValidator) emailIsAvailable(user *User) error {
+	existing, err := uv.ByEmail(user.Email)
+	if err == NotFoundError {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	if user.ID != existing.ID {
+		return ErrEmailTaken
+	}
 	return nil
 }
 
