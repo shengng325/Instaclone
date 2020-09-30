@@ -16,11 +16,12 @@ import (
 var (
 	NotFoundError        = errors.New("models: resource not found")
 	InvalidIdError       = errors.New("models: ID provided was invalid")
-	InvalidPasswordError = errors.New("models: incorrect password provided")
-	//InvalidEmailError = errors.New("models: incorrect email address provided")
-	ErrEmailRequired = errors.New("models: email address is required")
-	ErrEmailInvalid  = errors.New("models: email address is invalid")
-	ErrEmailTaken    = errors.New("models:Email is already taken")
+	ErrIncorrectPassword = errors.New("models: incorrect password provided")
+	ErrEmailRequired     = errors.New("models: email address is required")
+	ErrEmailInvalid      = errors.New("models: email address is invalid")
+	ErrEmailTaken        = errors.New("models:Email is already taken")
+	ErrPasswordTooShort  = errors.New("models: password must be at least 8 characters long")
+	ErrPasswordRequired  = errors.New("models:Password is required")
 )
 
 const userPwPepper = "secret-random-string"
@@ -100,7 +101,7 @@ func (us *userService) Authenticate(email, password string) (*User, error) {
 	if err != nil {
 		switch err {
 		case bcrypt.ErrMismatchedHashAndPassword:
-			return nil, InvalidPasswordError
+			return nil, ErrIncorrectPassword
 		default:
 			return nil, err
 		}
@@ -161,7 +162,10 @@ func (uv *userValidator) ByRemember(token string) (*User, error) {
 //Create US
 func (uv *userValidator) Create(user *User) error {
 	err := runValidatorFunc(user,
+		uv.passwordRequired,
+		uv.passwordMinLength,
 		uv.bcryptPassword,
+		uv.passwordHashRequired,
 		uv.setRememberIfUnset,
 		uv.hmacRemember,
 		uv.normalizeEmail,
@@ -176,7 +180,9 @@ func (uv *userValidator) Create(user *User) error {
 
 func (uv *userValidator) Update(user *User) error {
 	err := runValidatorFunc(user,
+		uv.passwordMinLength,
 		uv.bcryptPassword,
+		uv.passwordHashRequired,
 		uv.hmacRemember,
 		uv.normalizeEmail,
 		uv.requireEmail,
@@ -277,6 +283,30 @@ func (uv *userValidator) emailIsAvailable(user *User) error {
 	}
 	if user.ID != existing.ID {
 		return ErrEmailTaken
+	}
+	return nil
+}
+
+func (uv *userValidator) passwordMinLength(user *User) error {
+	if user.Password == "" {
+		return nil
+	}
+	if len(user.Password) < 8 {
+		return ErrPasswordTooShort
+	}
+	return nil
+}
+
+func (uv *userValidator) passwordRequired(user *User) error {
+	if user.Password == "" {
+		return ErrPasswordRequired
+	}
+	return nil
+}
+
+func (uv *userValidator) passwordHashRequired(user *User) error {
+	if user.PasswordHash == "" {
+		return ErrPasswordRequired
 	}
 	return nil
 }
