@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"lenslocked.com/models"
@@ -43,10 +44,6 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	err := parseForm(r, &form)
 	if err != nil {
 		vd.SetAlert(err)
-		// vd.Alert = &views.Alert{
-		// 	Level:   views.LevelError,
-		// 	Message: views.AlertGeneric,
-		// }
 		u.SignupView.Render(w, vd)
 		return
 	}
@@ -59,10 +56,6 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	err = u.us.Create(&user)
 	if err != nil {
 		vd.SetAlert(err)
-		// vd.Alert = &views.Alert{
-		// 	Level:   views.LevelError,
-		// 	Message: err.Error(),
-		// }
 		u.SignupView.Render(w, vd)
 	}
 	err = u.signIn(w, &user)
@@ -70,7 +63,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
-	//fmt.Fprintln(w, user)
+	fmt.Fprintln(w, user)
 
 }
 
@@ -82,25 +75,32 @@ type LoginForm struct {
 //Login verify email and pw
 func (u *User) Login(w http.ResponseWriter, r *http.Request) {
 	form := LoginForm{}
+	vd := views.Data{}
 	err := parseForm(r, &form)
 	if err != nil {
-		panic(err)
+		log.Println(err)
+		vd.SetAlert(err)
+		u.LoginView.Render(w, vd)
 	}
 
 	user, err := u.us.Authenticate(form.Email, form.Password)
 	if err != nil {
 		switch err {
 		case models.NotFoundError:
-			fmt.Fprintln(w, "Invalid email address")
-		case models.ErrIncorrectPassword:
-			fmt.Fprintln(w, "Invalid password")
+			vd.AlertError("Invalid email address")
 		default:
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			vd.SetAlert(err)
 		}
+		u.LoginView.Render(w, vd)
 		return
 	}
 
-	u.signIn(w, user)
+	err = u.signIn(w, user)
+	if err != nil {
+		vd.SetAlert(err)
+		u.LoginView.Render(w, vd)
+		return
+	}
 	fmt.Fprintln(w, user)
 }
 

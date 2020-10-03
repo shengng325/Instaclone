@@ -1,7 +1,5 @@
 package views
 
-import "lenslocked.com/models"
-
 const (
 	LevelError   = "danger"
 	LevelWarning = "warning"
@@ -26,7 +24,7 @@ type Data struct {
 }
 
 func (d *Data) SetAlert(err error) {
-	if pErr, ok := err.(models.PublicError); ok {
+	if pErr, ok := err.(PublicError); ok {
 		d.Alert = &Alert{
 			Level:   LevelError,
 			Message: pErr.Public(),
@@ -37,4 +35,16 @@ func (d *Data) SetAlert(err error) {
 			Message: AlertGeneric,
 		}
 	}
+}
+
+func (d *Data) AlertError(msg string) {
+	d.Alert = &Alert{
+		Level:   LevelError,
+		Message: msg,
+	}
+}
+
+type PublicError interface {
+	error
+	Public() string
 }

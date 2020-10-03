@@ -15,11 +15,6 @@ const (
 	ErrRememberRequired  modelError = "models: remember is required"
 )
 
-type PublicError interface {
-	error
-	Public() string
-}
-
 type modelError string
 
 func (e modelError) Error() string {
