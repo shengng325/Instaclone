@@ -26,10 +26,7 @@ type User struct {
 }
 
 func (u *User) Handler(w http.ResponseWriter, r *http.Request) {
-	err := u.SignupView.Render(w, nil)
-	if err != nil {
-		panic(err)
-	}
+	u.SignupView.Render(w, nil)
 }
 
 type SignupForm struct {
