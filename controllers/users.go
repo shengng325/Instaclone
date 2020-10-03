@@ -12,20 +12,20 @@ import (
 //init user
 func InitUser(us models.UserService) *User {
 	return &User{
-		NewView:   views.NewView("bootstrap", "users/new"),
-		LoginView: views.NewView("bootstrap", "users/login"),
-		us:        us,
+		SignupView: views.NewView("bootstrap", "users/new"),
+		LoginView:  views.NewView("bootstrap", "users/login"),
+		us:         us,
 	}
 }
 
 type User struct {
-	NewView   *views.View
-	LoginView *views.View
-	us        models.UserService
+	SignupView *views.View
+	LoginView  *views.View
+	us         models.UserService
 }
 
 func (u *User) Handler(w http.ResponseWriter, r *http.Request) {
-	err := u.NewView.Render(w, nil)
+	err := u.SignupView.Render(w, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -38,10 +38,17 @@ type SignupForm struct {
 }
 
 func (u *User) Create(w http.ResponseWriter, r *http.Request) {
+	var vd views.Data
 	var form SignupForm
 	err := parseForm(r, &form)
 	if err != nil {
-		panic(err)
+		vd.SetAlert(err)
+		// vd.Alert = &views.Alert{
+		// 	Level:   views.LevelError,
+		// 	Message: views.AlertGeneric,
+		// }
+		u.SignupView.Render(w, vd)
+		return
 	}
 
 	user := models.User{
@@ -51,10 +58,19 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	err = u.us.Create(&user)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		vd.SetAlert(err)
+		// vd.Alert = &views.Alert{
+		// 	Level:   views.LevelError,
+		// 	Message: err.Error(),
+		// }
+		u.SignupView.Render(w, vd)
 	}
-	u.signIn(w, &user)
-	fmt.Fprintln(w, user)
+	err = u.signIn(w, &user)
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
+	}
+	//fmt.Fprintln(w, user)
 
 }
 
