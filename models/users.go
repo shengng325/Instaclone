@@ -52,10 +52,9 @@ type UserService interface {
 }
 
 //NewUserService Init
-func NewUserService(connectionInfo string) (UserService, error) {
-	ug, err := newUserGorm(connectionInfo)
-	if err != nil {
-		return nil, err
+func NewUserService(db *gorm.DB) UserService {
+	ug := &userGorm{
+		db: db,
 	}
 	// newDb, err := gorm.Open("postgres", connectionInfo)
 	// if err != nil {
@@ -68,7 +67,7 @@ func NewUserService(connectionInfo string) (UserService, error) {
 	us := &userService{
 		UserDB: uv,
 	}
-	return us, err
+	return us
 }
 
 var _ UserService = &userService{}

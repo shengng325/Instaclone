@@ -42,16 +42,18 @@ func main() {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
-	us, err := models.NewUserService(psqlInfo)
-	if err != nil {
-		panic(err)
-	}
-	defer us.Close()
-	//us.DestructiveReset()
-	us.AutoMigrate()
+	// us, err := models.NewUserService(psqlInfo)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer us.Close()
+	// us.DestructiveReset()
+	// us.AutoMigrate()
 
+	services, err := models.NewServices(psqlInfo)
+	must(err)
 	staticC := controllers.NewStatic()
-	usersC := controllers.InitUser(us)
+	usersC := controllers.InitUser(services.User)
 
 	r := mux.NewRouter()
 	r.Handle("/", staticC.Home).Methods("GET")
