@@ -60,6 +60,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
+	http.Redirect(w, r, "/", http.StatusFound)
 	//fmt.Fprintln(w, user)
 
 }
@@ -98,7 +99,9 @@ func (u *User) Login(w http.ResponseWriter, r *http.Request) {
 		u.LoginView.Render(w, vd)
 		return
 	}
-	fmt.Fprintln(w, user)
+	http.Redirect(w, r, "/", http.StatusFound)
+
+	//fmt.Fprintln(w, user)
 }
 
 func (u *User) signIn(w http.ResponseWriter, user *models.User) error {
