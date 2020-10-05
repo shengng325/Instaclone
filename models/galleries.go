@@ -10,6 +10,38 @@ type Gallery struct {
 	Title  string `gorm: "not_null"`
 }
 
-type GalleryService interface{}
+func NewGalleryService(db *gorm.DB) GalleryService {
+	return &galleryService{
+		GalleryDB: &galleryValidator{
+			GalleryDB: &galleryGorm{
+				db: db,
+			},
+		},
+	}
+}
 
-type GalleryDB interface{}
+type GalleryService interface {
+	GalleryDB
+}
+
+type galleryService struct {
+	GalleryDB
+}
+
+type GalleryDB interface {
+	Create(gallery *Gallery) error
+}
+
+type galleryValidator struct {
+	GalleryDB
+}
+
+var _ GalleryDB = &galleryGorm{}
+
+type galleryGorm struct {
+	db *gorm.DB
+}
+
+func (gg *galleryGorm) Create(gallery *Gallery) error {
+	return gg.db.Create(gallery).Error
+}
