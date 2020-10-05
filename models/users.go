@@ -37,11 +37,6 @@ type UserDB interface {
 	Create(user *User) error
 	Update(user *User) error
 	Delete(id uint) error
-
-	Close() error
-
-	AutoMigrate() error
-	DestructiveReset() error
 }
 
 // UserService defines all of the methods we need to
@@ -325,18 +320,6 @@ func (uv *userValidator) passwordHashRequired(user *User) error {
 
 var _ UserDB = &userGorm{}
 
-func newUserGorm(connectionInfo string) (*userGorm, error) {
-	db, err := gorm.Open("postgres", connectionInfo)
-	if err != nil {
-		return nil, err
-	}
-	db.LogMode(true)
-	ug := &userGorm{
-		db: db,
-	}
-	return ug, err
-}
-
 //UserService struct
 type userGorm struct {
 	db *gorm.DB
@@ -398,29 +381,6 @@ func (ug *userGorm) Delete(id uint) error {
 		},
 	}
 	return ug.db.Delete(&user).Error
-}
-
-//DestructiveReset Drop and auto migrate, only for dev
-func (ug *userGorm) DestructiveReset() error {
-	err := ug.db.DropTableIfExists(&User{}).Error
-	if err != nil {
-		return err
-	}
-	return ug.AutoMigrate()
-}
-
-//AutoMigrate will auto migrate the users table
-func (ug *userGorm) AutoMigrate() error {
-	err := ug.db.AutoMigrate(&User{}).Error
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-//Close for close at the end. Should call with defer
-func (ug *userGorm) Close() error {
-	return ug.db.Close()
 }
 
 func first(db *gorm.DB, dst interface{}) error {
