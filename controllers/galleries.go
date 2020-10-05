@@ -1,6 +1,9 @@
 package controllers
 
 import (
+	"fmt"
+	"net/http"
+
 	"lenslocked.com/models"
 	"lenslocked.com/views"
 )
@@ -16,4 +19,30 @@ func NewGalleries(gs models.GalleryService) *Galleries {
 type Galleries struct {
 	NewGallery *views.View
 	gs         models.GalleryService
+}
+
+type GalleryForm struct {
+	Title string `schema:"title"`
+}
+
+// POST /galleries
+func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
+	var vd views.Data
+	var form GalleryForm
+	if err := parseForm(r, &form); err != nil {
+		vd.SetAlert(err)
+		g.NewGallery.Render(w, vd)
+		return
+	}
+	// user := context.User(r.Context())
+	gallery := models.Gallery{
+		Title: form.Title,
+		// UserID: user.ID,
+	}
+	if err := g.gs.Create(&gallery); err != nil {
+		vd.SetAlert(err)
+		g.NewGallery.Render(w, vd)
+		return
+	}
+	fmt.Fprintln(w, gallery)
 }
