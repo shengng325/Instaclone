@@ -11,7 +11,7 @@ import (
 )
 
 //init user
-func InitUser(us models.UserService) *User {
+func NewUsers(us models.UserService) *User {
 	return &User{
 		SignupView: views.NewView("bootstrap", "users/new"),
 		LoginView:  views.NewView("bootstrap", "users/login"),
@@ -60,7 +60,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
-	fmt.Fprintln(w, user)
+	//fmt.Fprintln(w, user)
 
 }
 
