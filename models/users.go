@@ -355,7 +355,7 @@ func (ug *userGorm) ByEmail(email string) (*User, error) {
 
 func (ug *userGorm) ByRemember(rememberHash string) (*User, error) {
 	var user User
-	db := ug.db.Where("remember_token = ?", rememberHash)
+	db := ug.db.Where("remember_hash = ?", rememberHash)
 	err := first(db, &user)
 	if err != nil {
 		return nil, err
