@@ -13,6 +13,7 @@ import (
 
 const (
 	ShowGallery = "show_gallery"
+	EditGallery = "edit_gallery"
 )
 
 //init user
@@ -38,6 +39,19 @@ type Galleries struct {
 
 type GalleryForm struct {
 	Title string `schema:"title"`
+}
+
+// GET /galleries
+func (g *Galleries) Index(w http.ResponseWriter, r *http.Request) {
+	user := context.User(r.Context())
+	galleries, err := g.gs.ByUserID(user.ID)
+	if err != nil {
+		http.Error(w, "Something went wrong.", http.StatusInternalServerError)
+		return
+	}
+	var vd views.Data
+	vd.Yield = galleries
+	g.IndexView.Render(w, vd)
 }
 
 func (g *Galleries) Show(w http.ResponseWriter, r *http.Request) {
@@ -155,7 +169,8 @@ func (g *Galleries) Delete(w http.ResponseWriter, r *http.Request) {
 		g.EditView.Render(w, vd)
 		return
 	}
-	fmt.Fprintln(w, gallery)
+	http.Redirect(w, r, "/galleries", http.StatusFound)
+	// fmt.Fprintln(w, gallery)
 	//url, err := g.r.Get(IndexGalleries).URL()
 	// if err != nil {
 	// 	http.Redirect(w, r, "/", http.StatusFound)
