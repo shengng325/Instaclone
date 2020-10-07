@@ -93,7 +93,7 @@ func (g *Galleries) Update(w http.ResponseWriter, r *http.Request) {
 		vd.SetAlert(err)
 	} else {
 		vd.Alert = &views.Alert{
-			Level:   views.AlertLvlSuccess,
+			Level:   views.LevelSuccess,
 			Message: "Gallery successfully updated!",
 		}
 	}
