@@ -3,7 +3,7 @@ package models
 import "strings"
 
 const (
-	NotFoundError        modelError = "models: resource not found"
+	ErrNotFound          modelError = "models: resource not found"
 	ErrIncorrectPassword modelError = "models: incorrect password provided"
 	ErrEmailRequired     modelError = "models: email address is required"
 	ErrEmailInvalid      modelError = "models: email address is invalid"

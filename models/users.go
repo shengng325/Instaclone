@@ -282,7 +282,7 @@ func (uv *userValidator) emailFormat(user *User) error {
 
 func (uv *userValidator) emailIsAvailable(user *User) error {
 	existing, err := uv.ByEmail(user.Email)
-	if err == NotFoundError {
+	if err == ErrNotFound {
 		return nil
 	}
 	if err != nil {
@@ -327,7 +327,7 @@ type userGorm struct {
 
 //ByID will look up by the id provided
 // 1 - user, nil
-// 2 - nil, NotFoundError
+// 2 - nil, ErrNotFound
 // 3 - nil, OtherError
 func (ug *userGorm) ByID(id uint) (*User, error) {
 	var user User
@@ -341,7 +341,7 @@ func (ug *userGorm) ByID(id uint) (*User, error) {
 
 //ByEmail will look up by the id provided
 // 1 - user, nil
-// 2 - nil, NotFoundError
+// 2 - nil, ErrNotFound
 // 3 - nil, OtherError
 func (ug *userGorm) ByEmail(email string) (*User, error) {
 	var user User
@@ -386,7 +386,7 @@ func (ug *userGorm) Delete(id uint) error {
 func first(db *gorm.DB, dst interface{}) error {
 	err := db.First(dst).Error
 	if err == gorm.ErrRecordNotFound {
-		return NotFoundError
+		return ErrNotFound
 	}
 	return err
 }

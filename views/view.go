@@ -2,6 +2,7 @@ package views
 
 import (
 	"bytes"
+	// "fmt"
 	"html/template"
 	"io"
 	"net/http"
