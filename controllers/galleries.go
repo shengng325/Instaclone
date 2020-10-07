@@ -135,6 +135,35 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// POST /galleries/:id/delete
+func (g *Galleries) Delete(w http.ResponseWriter, r *http.Request) {
+	gallery, err := g.galleryByID(w, r)
+	if err != nil {
+		return
+	}
+	user := context.User(r.Context())
+	if gallery.UserID != user.ID {
+		http.Error(w, "You do not have permission to edit "+
+			"this gallery", http.StatusForbidden)
+		return
+	}
+	var vd views.Data
+	err = g.gs.Delete(gallery.ID)
+	if err != nil {
+		vd.SetAlert(err)
+		vd.Yield = gallery
+		g.EditView.Render(w, vd)
+		return
+	}
+	fmt.Fprintln(w, gallery)
+	//url, err := g.r.Get(IndexGalleries).URL()
+	// if err != nil {
+	// 	http.Redirect(w, r, "/", http.StatusFound)
+	// 	return
+	// }
+	//http.Redirect(w, r, url.Path, http.StatusFound)
+}
+
 // galleryByID will parse the "id" variable from the
 // request path using gorilla/mux and then use that ID to
 // retrieve the gallery from the GalleryService

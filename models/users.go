@@ -230,7 +230,7 @@ func (uv *userValidator) setRememberIfUnset(user *User) error {
 func (uv *userValidator) idGreaterThan(n uint) validatorFunc {
 	fn := validatorFunc(func(user *User) error {
 		if user.ID <= n {
-			return InvalidIdError
+			return ErrInvalidId
 		}
 		return nil
 	})
