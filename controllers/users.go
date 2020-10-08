@@ -26,7 +26,7 @@ type User struct {
 }
 
 func (u *User) Handler(w http.ResponseWriter, r *http.Request) {
-	u.SignupView.Render(w, nil)
+	u.SignupView.Render(w, r, nil)
 }
 
 type SignupForm struct {
@@ -41,7 +41,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	err := parseForm(r, &form)
 	if err != nil {
 		vd.SetAlert(err)
-		u.SignupView.Render(w, vd)
+		u.SignupView.Render(w, r, vd)
 		return
 	}
 
@@ -53,7 +53,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	err = u.us.Create(&user)
 	if err != nil {
 		vd.SetAlert(err)
-		u.SignupView.Render(w, vd)
+		u.SignupView.Render(w, r, vd)
 	}
 	err = u.signIn(w, &user)
 	if err != nil {
@@ -78,7 +78,7 @@ func (u *User) Login(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 		vd.SetAlert(err)
-		u.LoginView.Render(w, vd)
+		u.LoginView.Render(w, r, vd)
 	}
 
 	user, err := u.us.Authenticate(form.Email, form.Password)
@@ -89,17 +89,17 @@ func (u *User) Login(w http.ResponseWriter, r *http.Request) {
 		default:
 			vd.SetAlert(err)
 		}
-		u.LoginView.Render(w, vd)
+		u.LoginView.Render(w, r, vd)
 		return
 	}
 
 	err = u.signIn(w, user)
 	if err != nil {
 		vd.SetAlert(err)
-		u.LoginView.Render(w, vd)
+		u.LoginView.Render(w, r, vd)
 		return
 	}
-	http.Redirect(w, r, "/", http.StatusFound)
+	http.Redirect(w, r, "/galleries", http.StatusFound)
 
 	//fmt.Fprintln(w, user)
 }
