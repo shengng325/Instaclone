@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	ShowGallery = "show_gallery"
-	EditGallery = "edit_gallery"
-	EditGallery = "edit_gallery"
+	IndexGalleries = "index_galleries"
+	ShowGallery    = "show_gallery"
+	EditGallery    = "edit_gallery"
 
 	maxMultipartMem = 1 << 20 // 1 megabyte
 

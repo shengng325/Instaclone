@@ -84,6 +84,9 @@ func main() {
 		requireUserMw.ApplyFn(galleriesC.Update)).Methods("POST")
 	r.HandleFunc("/galleries/{id:[0-9]+}/delete",
 		requireUserMw.ApplyFn(galleriesC.Delete)).Methods("POST")
+	r.HandleFunc("/galleries/{id:[0-9]+}/images",
+		requireUserMw.ApplyFn(galleriesC.ImageUpload)).
+		Methods("POST")
 
 	fmt.Println("Server running at :3000")
 	http.ListenAndServe(":3000", userMw.Apply(r))
