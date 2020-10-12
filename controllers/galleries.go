@@ -160,12 +160,22 @@ func (g *Galleries) ImageUpload(w http.ResponseWriter, r *http.Request) {
 			g.EditView.Render(w, r, vd)
 			return
 		}
+
+		// url, err := g.r.Get(IndexGalleries).URL()
+		// if err != nil {
+		// 	http.Redirect(w, r, "/", http.StatusFound)
+		// 	return
+		// }
+		// http.Redirect(w, r, url.Path, http.StatusFound)
+
 	}
 
 	vd.Alert = &views.Alert{
 		Level:   views.LevelSuccess,
 		Message: "Images successfully uploaded!",
 	}
+	gallery, _ = g.galleryByID(w, r)
+	vd.Yield = gallery
 	g.EditView.Render(w, r, vd)
 }
 
@@ -260,5 +270,8 @@ func (g *Galleries) galleryByID(w http.ResponseWriter,
 		}
 		return nil, err
 	}
+	images, _ := g.is.ByGalleryID(gallery.ID)
+	gallery.Images = images
+
 	return gallery, nil
 }

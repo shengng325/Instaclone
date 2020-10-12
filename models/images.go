@@ -9,7 +9,7 @@ import (
 
 type ImageService interface {
 	Create(galleryID uint, r io.Reader, filename string) error
-	//ByGalleryID(galleryID uint) ([]string, error)
+	ByGalleryID(galleryID uint) ([]string, error)
 }
 
 func NewImageService() ImageService {
@@ -23,6 +23,7 @@ func (is *imageService) Create(galleryID uint, r io.Reader, filename string) err
 	if err != nil {
 		return err
 	}
+	fmt.Println("!path", path)
 	// Create a destination file
 	dst, err := os.Create(filepath.Join(path, filename))
 	if err != nil {
@@ -35,6 +36,21 @@ func (is *imageService) Create(galleryID uint, r io.Reader, filename string) err
 		return err
 	}
 	return nil
+}
+
+func (is *imageService) ByGalleryID(galleryID uint) ([]string, error) {
+	path := is.imagePath(galleryID)
+	strings, err := filepath.Glob(filepath.Join(path, "*"))
+	if err != nil {
+		return nil, err
+	}
+	// Add a leading "/" to all image file paths
+	for i := range strings {
+		temp := filepath.ToSlash(strings[i])
+		strings[i] = "/" + temp
+	}
+	return strings, nil
+
 }
 
 // Going to need this when we know it is already made

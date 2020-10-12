@@ -88,6 +88,10 @@ func main() {
 		requireUserMw.ApplyFn(galleriesC.ImageUpload)).
 		Methods("POST")
 
+	// Image routes
+	imageHandler := http.FileServer(http.Dir("./images/"))
+	r.PathPrefix("/images/").Handler(http.StripPrefix("/images/", imageHandler))
+
 	fmt.Println("Server running at :3000")
 	http.ListenAndServe(":3000", userMw.Apply(r))
 }
