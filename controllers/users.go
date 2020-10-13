@@ -61,8 +61,6 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/", http.StatusFound)
-	//fmt.Fprintln(w, user)
-
 }
 
 type LoginForm struct {
