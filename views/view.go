@@ -40,9 +40,14 @@ func (v *View) Render(w http.ResponseWriter, r *http.Request, data interface{}) 
 			Yield: data,
 		}
 	}
+
+	if alert := getAlert(r); alert != nil {
+		vd.Alert = alert
+		clearAlert(w)
+	}
+
 	vd.User = context.User(r.Context())
 	var buf bytes.Buffer
-	//err := v.Template.ExecuteTemplate(&buf, v.Layout, vd)
 	csrfField := csrf.TemplateField(r)
 	tpl := v.Template.Funcs(template.FuncMap{
 		"csrfField": func() template.HTML {
@@ -56,7 +61,6 @@ func (v *View) Render(w http.ResponseWriter, r *http.Request, data interface{}) 
 		return
 	}
 	io.Copy(w, &buf)
-	// return v.Template.ExecuteTemplate(w, v.Layout, data)
 }
 
 func NewView(layout string, files ...string) *View {
