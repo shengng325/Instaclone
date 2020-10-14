@@ -13,40 +13,12 @@ import (
 	"lenslocked.com/rand"
 )
 
-// var homeView *views.View
-// var contactView *views.View
-
-// func HomeHandler(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "text/html")
-// 	must(homeView.Render(w, nil))
-
-// }
-
-// func ContactsHandler(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "text/html")
-// 	must(contactView.Render(w, nil))
-// }
-
-func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusNotFound)
-	fmt.Fprint(w, "<h1> 404 NOT FOUND!!! </h1>")
-}
-
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "1234"
-	dbname   = "postgres"
-)
-
 func main() {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+	cfg := DefaultConfig()
+	dbCfg := DefaultPostgresConfig()
+	services, err := models.NewServices(dbCfg.Dialect(),
+		dbCfg.ConnectionInfo())
 
-	services, err := models.NewServices(psqlInfo)
 	must(err)
 	defer services.Close()
 	services.AutoMigrate()
@@ -70,7 +42,6 @@ func main() {
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	r.Handle("/login", usersC.LoginView).Methods("GET")
 	r.HandleFunc("/login", usersC.Login).Methods("POST")
-	r.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 
 	r.Handle("/galleries",
 		requireUserMw.ApplyFn(galleriesC.Index)).Methods("GET")
@@ -102,16 +73,19 @@ func main() {
 	assetHandler = http.StripPrefix("/assets/", assetHandler)
 	r.PathPrefix("/assets/").Handler(assetHandler)
 
-	// TODO: Update this to be a config variable
-	isProd := false
 	b, err := rand.Bytes(32)
 	if err != nil {
 		panic(err)
 	}
-	csrfMw := csrf.Protect(b, csrf.Secure(isProd))
+	csrfMw := csrf.Protect(b, csrf.Secure(cfg.IsProd()))
 
-	fmt.Println("Server running at :3000")
-	http.ListenAndServe(":3000", csrfMw(userMw.Apply(r)))
+	// fmt.Println("Server running at :3000")
+	// http.ListenAndServe(":3000", csrfMw(userMw.Apply(r)))
+
+	fmt.Printf("Starting the server on :%d...\n", cfg.Port)
+	http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port),
+		csrfMw(userMw.Apply(r)))
+
 }
 
 func must(err error) {
