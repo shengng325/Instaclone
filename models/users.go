@@ -12,9 +12,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
-const userPwPepper = "secret-random-string"
-const hmacSecretKey = "secret-hmac-key"
-
 //User model
 type User struct {
 	gorm.Model
@@ -46,23 +43,14 @@ type UserService interface {
 	UserDB
 }
 
-//NewUserService Init
-func NewUserService(db *gorm.DB) UserService {
-	ug := &userGorm{
-		db: db,
-	}
-	// newDb, err := gorm.Open("postgres", connectionInfo)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// newDb.LogMode(true)
-	// hmac := hash.NewHMAC(hmacSecretKey)
-	hmac := hash.NewHMAC(hmacSecretKey)
-	uv := newUserValidator(ug, hmac)
-	us := &userService{
+func NewUserService(db *gorm.DB, pepper, hmacKey string) UserService {
+	ug := &userGorm{db}
+	hmac := hash.NewHMAC(hmacKey)
+	uv := newUserValidator(ug, hmac, pepper)
+	return &userService{
 		UserDB: uv,
+		pepper: pepper,
 	}
-	return us
 }
 
 var _ UserService = &userService{}
@@ -70,6 +58,7 @@ var _ UserService = &userService{}
 //UserService struct
 type userService struct {
 	UserDB
+	pepper string
 }
 
 //Authenticate use to authenticate email and pw
@@ -79,7 +68,7 @@ func (us *userService) Authenticate(email, password string) (*User, error) {
 		return nil, err
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(foundUser.PasswordHash), []byte(password+userPwPepper))
+	err = bcrypt.CompareHashAndPassword([]byte(foundUser.PasswordHash), []byte(password+us.pepper))
 	if err != nil {
 		switch err {
 		case bcrypt.ErrMismatchedHashAndPassword:
@@ -109,12 +98,14 @@ type userValidator struct {
 	UserDB
 	hmac       hash.HMAC
 	emailRegex *regexp.Regexp
+	pepper     string
 }
 
-func newUserValidator(udb UserDB, hmac hash.HMAC) *userValidator {
+func newUserValidator(udb UserDB, hmac hash.HMAC, pepper string) *userValidator {
 	return &userValidator{
 		UserDB:     udb,
 		hmac:       hmac,
+		pepper:     pepper,
 		emailRegex: regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,16}$`),
 	}
 }
@@ -196,7 +187,7 @@ func (uv *userValidator) bcryptPassword(user *User) error {
 	if user.Password == "" {
 		return nil
 	}
-	pwBytes := []byte(user.Password + userPwPepper)
+	pwBytes := []byte(user.Password + uv.pepper)
 	hashedBytes, err := bcrypt.GenerateFromPassword(pwBytes, bcrypt.DefaultCost)
 	if err != nil {
 		return err
