@@ -27,8 +27,10 @@ type User struct {
 	us         models.UserService
 }
 
-func (u *User) Handler(w http.ResponseWriter, r *http.Request) {
-	u.SignupView.Render(w, r, nil)
+func (u *User) Signup(w http.ResponseWriter, r *http.Request) {
+	var form SignupForm
+	parseURLParams(r, &form)
+	u.SignupView.Render(w, r, form)
 }
 
 type SignupForm struct {
@@ -40,6 +42,7 @@ type SignupForm struct {
 func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	var vd views.Data
 	var form SignupForm
+	vd.Yield = &form
 	err := parseForm(r, &form)
 	if err != nil {
 		vd.SetAlert(err)
@@ -56,6 +59,7 @@ func (u *User) Create(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		vd.SetAlert(err)
 		u.SignupView.Render(w, r, vd)
+		return
 	}
 	err = u.signIn(w, &user)
 	if err != nil {
