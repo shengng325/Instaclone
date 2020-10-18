@@ -3,8 +3,6 @@ package views
 import (
 	"bytes"
 	"errors"
-
-	// "fmt"
 	"html/template"
 	"io"
 	"net/http"
