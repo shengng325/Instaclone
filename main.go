@@ -33,7 +33,6 @@ func main() {
 	must(err)
 	defer services.Close()
 	services.AutoMigrate()
-	//services.DestructiveReset()
 
 	r := mux.NewRouter()
 
@@ -92,9 +91,6 @@ func main() {
 		panic(err)
 	}
 	csrfMw := csrf.Protect(b, csrf.Secure(cfg.IsProd()))
-
-	// fmt.Println("Server running at :3000")
-	// http.ListenAndServe(":3000", csrfMw(userMw.Apply(r)))
 
 	fmt.Printf("Starting the server on :%d...\n", cfg.Port)
 	http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port),
