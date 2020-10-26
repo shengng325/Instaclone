@@ -30,7 +30,9 @@ func main() {
 		models.WithImage(),
 	)
 
-	must(err)
+	if err != nil {
+		panic(err)
+	}
 	defer services.Close()
 	services.AutoMigrate()
 
@@ -96,10 +98,4 @@ func main() {
 	http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port),
 		csrfMw(userMw.Apply(r)))
 
-}
-
-func must(err error) {
-	if err != nil {
-		panic(err)
-	}
 }
