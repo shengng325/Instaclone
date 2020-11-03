@@ -11,3 +11,23 @@ margin-bottom: 6px;
 footer {
 padding-top: 60px;
 }
+
+.container-fluid {
+    max-width: 1200px;
+}
+
+nav .navbar.navbar-default div.container-fluid {
+    position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+}
+
+.nav.navbar-nav .link-menu {
+    color: black;
+}
+
+.topbar-profile-photo {
+    width: 1.5em; 
+    height: 1.5em; 
+    position: relative;
+}
