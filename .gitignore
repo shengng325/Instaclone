@@ -1,5 +1,6 @@
 *.o
 images/**
+assets/images/**
 
 ### Go ###
 # Binaries for programs and plugins
