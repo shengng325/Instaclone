@@ -1,4 +1,4 @@
-{{define "yield"}}
+{{define "yield2"}}
 <div class="row">
   <div class="col-md-12">
     <h1>
@@ -19,3 +19,54 @@
   {{end}}
 </div>
 {{end}}
+
+{{define "yield"}}
+    <div class="profile-body">
+        <section class="profile-info">
+            <div class="info-left">
+                <div class="profile-pic">
+                    <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                </div>
+            </div>
+            <div class="info-right">
+                <div class="profile-username">
+                    <h3>alicesaraott_official</h3>
+                    <button type="button" class="btn btn-outline-secondary">Message</button>
+                </div>
+                <h4>
+                    <span>880</span> posts&nbsp;&nbsp;&nbsp;&nbsp; <span>68.5k</span> followers&nbsp;&nbsp;&nbsp;&nbsp; <span>308</span> following  
+                </h4>
+                <p>
+                    Alice Sara Ott on Instagram
+                    wants to be friends with Chandler Bing and Joey Tribbiani.
+                    Press:samantha@encore-artists.com // Management:tugce.tez@harrisonparrott.co.uk
+                    www.youtube.com/embed/eBljoP2VGgQ 
+                <p>
+            </div>
+        </section>
+        <section class="profile-pictures">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>
+                    {{.Title}}
+                    </h1>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                {{range .ImagesSplitN 3}}
+                    <div class="col-md-4">
+                    {{range .}}
+                        <a href="{{.Path}}">
+                        <img src="{{.Path}}" class="thumbnail">
+                        </a>
+                    {{end}}
+                    </div>
+                {{end}}
+            </div>
+        </section>
+    </div>
+
+ 
+{{end}}
+
