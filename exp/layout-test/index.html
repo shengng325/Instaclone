@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Instagram-clone</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./styles.css" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"> -->
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img src="../../assets/images/ig-logo.png" alt="logo" loading="lazy">
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="list-inline-item">
+                        <a href="/" class="link-menu">
+                            <svg aria-label="Home" class="_8-yf5 " fill="#262626" width="22" height="22" viewBox="0 0 48 48" ><path d="M45.3 48H30c-.8 0-1.5-.7-1.5-1.5V34.2c0-2.6-2-4.6-4.6-4.6s-4.6 2-4.6 4.6v12.3c0 .8-.7 1.5-1.5 1.5H2.5c-.8 0-1.5-.7-1.5-1.5V23c0-.4.2-.8.4-1.1L22.9.4c.6-.6 1.5-.6 2.1 0l21.5 21.5c.4.4.6 1.1.3 1.6 0 .1-.1.1-.1.2v22.8c.1.8-.6 1.5-1.4 1.5zm-13.8-3h12.3V23.4L24 3.6l-20 20V45h12.3V34.2c0-4.3 3.3-7.6 7.6-7.6s7.6 3.3 7.6 7.6V45z"></path></svg>
+                            <!-- <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door-fill"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z" />
+                                <path fill-rule="evenodd"
+                                    d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                            </svg> -->
+                        </a>
+                    </li>
+                    
+                        <li class="list-inline-item ml-2">
+                            <a href="/galleries" class="link-menu">
+                                <svg aria-label="Find People" class="_8-yf5 " fill="#262626" width="22" height="22" viewBox="0 0 48 48"><path clip-rule="evenodd" d="M24 0C10.8 0 0 10.8 0 24s10.8 24 24 24 24-10.8 24-24S37.2 0 24 0zm0 45C12.4 45 3 35.6 3 24S12.4 3 24 3s21 9.4 21 21-9.4 21-21 21zm10.2-33.2l-14.8 7c-.3.1-.6.4-.7.7l-7 14.8c-.3.6-.2 1.3.3 1.7.3.3.7.4 1.1.4.2 0 .4 0 .6-.1l14.8-7c.3-.1.6-.4.7-.7l7-14.8c.3-.6.2-1.3-.3-1.7-.4-.5-1.1-.6-1.7-.3zm-7.4 15l-5.5-5.5 10.5-5-5 10.5z" fill-rule="evenodd"></path></svg>
+                                <!-- <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-compass"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 15.016a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zm0 1a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15z" />
+                                    <path
+                                        d="M6 1a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H7a1 1 0 0 1-1-1zm.94 6.44l4.95-2.83-2.83 4.95-4.95 2.83 2.83-4.95z" />
+                                </svg> -->
+                            </a>
+                        </li>
+                        <li><a href="/login">Log In</a></li>
+                        <li><a href="/signup">Sign Up</a></li>
+
+                </ul>
+                </div>
+            </div>
+        </nav>
+
+    <div class="container-fluid">
+        <div class="index-body">
+            <div class="index-left">
+                <div class="stories">
+                    <div class="story">
+                        <div class="user-image">
+                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        </div>
+                        <div class="user-name">
+                            <p>alicesaraott</p>
+                        </div>
+                    </div>
+                    <div class="story">
+                        <div class="user-image">
+                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        </div>
+                        <div class="user-name">
+                            <p>alicesaraott</p>
+                        </div>
+                    </div>
+                    <div class="story">
+                        <div class="user-image">
+                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        </div>
+                        <div class="user-name">
+                            <p>alicesaraott</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-posts">
+                    <div class="post">
+                        <div class="card-header">
+                            <div class="user-image">
+                                <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            </div>
+                            <div class="user-name">
+                                <p>alicesaraott</p>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="../../assets/images/Alice.jpg" alt="alice">
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-button">
+                                <svg aria-label="Like" class="love-icon" fill="#262626" width="25" height="25" viewBox="0 0 48 48"><path d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path></svg>
+                            </button>
+                            <button class="card-button">
+                                <svg aria-label="Comment" class="chat-icon" fill="#262626" width="25" height="25" viewBox="0 0 48 48"><path clip-rule="evenodd" d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z" fill-rule="evenodd"></path></svg>
+                            </button>
+                            <button class="card-button">
+                                <svg aria-label="Share Post" class="share-icon" fill="#262626" width="25" height="25" viewBox="0 0 48 48"><path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="card-captions">
+                            <p><span> alicesaraott</span>
+                                About last weekend.
+                                We played four times for 200 people per concert at the #FestivalDerNationen 
+                                - These concerts happened because of the heartblood, energy and 
+                                countless conversations the festival team invested under the most difficult circumstances.
+                                We are still in a state of emergency and it would be wrong and ignorant to assume that the 
+                                concerts that happen these days mean that we are gradually moving back to normality. </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="index-right">
+                <div class="user-profile">
+                    <div class="user-image">
+                        <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                    </div>
+                    <div class="user-name">
+                        <h5>alicesaraott</h5>
+                        <p>Alice Sara Ott</p>
+                    </div>
+                    <div class="btn-to-profile">
+                        <a href="/galleries"> Go to profile </a>
+                    </div>
+                </div>
+                <div class="user-suggestion">
+                    <div class="title">
+                        <h5>Suggestion for you</h5>
+                    </div>
+                    <p>No suggestion for you now :(</p>
+                    <div class="suggestion-profile">
+                        <div class="user-image">
+                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        </div>
+                        <div class="user-name">
+                            <h5>alicesaraott</h5>
+                            <p>Alice Sara Ott</p>
+                        </div>
+                        <div class="btn-to-profile">
+                            <a href="#"> Follow </a>
+                        </div>
+                    </div>
+                    <div class="suggestion-profile">
+                        <div class="user-image">
+                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        </div>
+                        <div class="user-name">
+                            <h5>alicesaraott</h5>
+                            <p>Alice Sara Ott</p>
+                        </div>
+                        <div class="btn-to-profile">
+                            <a href="#"> Follow </a>
+                        </div>
+                    </div>
+                    <div class="suggestion-profile">
+                        <div class="user-image">
+                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        </div>
+                        <div class="user-name">
+                            <h5>alicesaraott</h5>
+                            <p>Alice Sara Ott</p>
+                        </div>
+                        <div class="btn-to-profile">
+                            <a href="#"> Follow </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery & Bootstrap JS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+</html>
+

@@ -45,15 +45,24 @@
             </div>
         </section>
         <section class="profile-pictures">
-            <div class="row">
+            {{/* <div class="row">
                 <div class="col-md-12">
                     <h1>
                     {{.Title}}
                     </h1>
                     <hr>
                 </div>
-            </div>
-            <div class="row">
+            </div> */}}
+            <div class="grid-container">
+                {{range .ImagesSplitN 3}}
+                    {{range .}}
+                    <a href="{{.Path}}">
+                        <img src="{{.Path}}" class="thumbnail">
+                    </a>
+                    {{end}}
+                {{end}}
+
+            {{/* <div class="row">
                 {{range .ImagesSplitN 3}}
                     <div class="col-md-4">
                     {{range .}}
@@ -63,7 +72,7 @@
                     {{end}}
                     </div>
                 {{end}}
-            </div>
+            </div> */}}
         </section>
     </div>
 
