@@ -96,6 +96,7 @@ func main() {
 
 	fmt.Printf("Starting the server on :%d...\n", cfg.Port)
 	http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port),
+		// userMw.Apply(r))
 		csrfMw(userMw.Apply(r)))
 
 }
