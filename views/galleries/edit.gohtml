@@ -2,13 +2,13 @@
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <h2>Edit your gallery</h2>
-    <a href="/galleries/{{.ID}}">
+    <a href="/galleries/{{.Yield.ID}}">
       View this gallery
     </a>
     <hr>
   </div>
   <div class="col-md-12">
-    {{template "editGalleryForm" .}}
+    {{template "editGalleryForm" .Yield}}
   </div>
 </div>
 <div class="row">
@@ -18,12 +18,12 @@
     </label>
   </div>
   <div class="col-md-10">
-    {{template "galleryImages" .}}
+    {{template "galleryImages" .Yield}}
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    {{template "uploadImageForm" .}}
+    {{template "uploadImageForm" .Yield}}
   </div>
 </div>
 <div class="row">
@@ -32,7 +32,7 @@
     <hr>
   </div>
   <div class="col-md-12">
-    {{template "deleteGalleryForm" .}}
+    {{template "deleteGalleryForm" .Yield}}
   </div>
 </div>
 {{end}}

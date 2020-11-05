@@ -98,6 +98,10 @@ padding-top: 60px;
     margin-top: 10px;
 }
 
+.profile-body .profile-info .info-right p.no-margin-top{
+    margin-top: 0;
+}
+
 .profile-body .profile-info .info-right .profile-username button{
     margin-left: 30px;
 }
@@ -208,3 +212,249 @@ padding-top: 60px;
 
 /* End form */
 
+/* Index page */
+
+.index-body {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.index-body .index-left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+}
+
+.index-body .index-left .stories {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    background: white;
+    padding: 15px 10px 10px;
+}
+
+.index-body .index-left .stories .story {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 10px;
+}
+
+.index-body .index-left .stories .story .user-image {
+    border-radius: 50%;
+    padding: 1px;
+    background: white;
+    border: 3px solid tomato;
+    margin-bottom: 5px;
+}
+
+.index-body .index-left .stories .story img {
+    max-width: 70px;
+    border-radius: 50%;
+}
+
+.index-body .index-left .stories .story p {
+    margin-bottom: 0px;
+    color: black;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.index-body .index-left .photo-posts {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.index-body .index-left .photo-posts .post {
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    background: white;
+}
+
+.index-body .index-left .photo-posts .post .card-header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+}
+
+.index-body .index-left .photo-posts .post .card-header .user-image {
+    border-radius: 50%;
+    padding: 0.5px;
+    background: white;
+    border: 3px solid tomato;
+    margin-bottom: 5px;
+}
+
+.index-body .index-left .photo-posts .post .card-header img {
+    max-width: 40px;
+    border-radius: 50%;
+}
+
+.index-body .index-left .photo-posts .post .card-header p {
+    margin: 0px 15px;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.index-body .index-left .photo-posts .post .card-image {
+    max-height: 600px;
+}
+
+.index-body .index-left .photo-posts .post .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.index-body .index-left .photo-posts .post .card-buttons {
+    padding: 8px;
+}
+
+.index-body .index-left .photo-posts .post .card-button {
+    background: white;
+    border: 0px;
+    min-width: 50px;
+}
+
+.index-body .index-left .photo-posts .post .card-captions {
+    font-size: 14px;
+    color: black;
+    padding: 5px 20px;
+}
+
+.index-body .index-left .photo-posts .post .card-captions span {
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+}
+
+.index-body .index-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+}
+
+.index-body .index-right .user-profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.index-body .index-right .user-profile .user-image {
+    /* border-radius: 50%;
+    padding: 1px;
+    background: white;
+    border: 3px solid tomato;
+    margin-bottom: 5px; */
+}
+
+.index-body .index-right .user-profile img {
+    max-width: 60px;
+    border-radius: 50%;
+}
+
+.index-body .index-right .user-profile .user-name {
+    margin-left: 16px;
+}
+
+.index-body .index-right .user-profile .user-name h5 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.index-body .index-right .user-profile .user-name p {
+    font-size: 15px;
+    color: #8E8E8E;
+}
+
+.index-body .index-right .user-profile .btn-to-profile {
+    flex: 1;
+    text-align: end;
+}
+
+.index-body .index-right .user-profile a {
+    color: #0095f6;
+    font-size: 600;
+    font-size: 15px;
+}
+
+
+.index-body .index-right .user-suggestion {
+    margin-top: 30px;
+}
+
+.index-body .index-right .user-suggestion h5{
+    font-size: 15px;
+    font-weight: 600;
+    color: #8E8E8E;
+}
+
+.index-body .index-right .user-suggestion p{
+    font-size: 14px;
+    /* font-weight: 600; */
+    color: #8E8E8E;
+}
+
+.index-body .index-right .suggestion-profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.index-body .index-right .suggestion-profile .user-image {
+    /* border-radius: 50%;
+    padding: 1px;
+    background: white;
+    border: 3px solid tomato;
+    margin-bottom: 5px; */
+}
+
+.index-body .index-right .suggestion-profile img {
+    max-width: 50px;
+    border-radius: 50%;
+}
+
+.index-body .index-right .suggestion-profile .user-name {
+    margin-left: 16px;
+}
+
+.index-body .index-right .suggestion-profile .user-name h5 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.index-body .index-right .suggestion-profile .user-name p {
+    font-size: 13px;
+    color: #8E8E8E;
+}
+
+.index-body .index-right .suggestion-profile .btn-to-profile {
+    flex: 1;
+    text-align: end;
+}
+
+.index-body .index-right .suggestion-profile a {
+    color: #0095f6;
+    font-size: 600;
+    font-size: 13px;
+}
+
+/* End index page */

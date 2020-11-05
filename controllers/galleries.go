@@ -57,6 +57,10 @@ func (g *Galleries) Index(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Something went wrong.", http.StatusInternalServerError)
 		return
 	}
+	for i, gallery := range galleries {
+		images, _ := g.is.ByGalleryID(gallery.ID)
+		galleries[i].Images = images
+	}
 	var vd views.Data
 	vd.Yield = galleries
 	g.IndexView.Render(w, r, vd)

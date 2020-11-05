@@ -1,4 +1,13 @@
-{{define "yield"}}
-    <h1>Welcome to my awewsome site</h1>
+{{define "yield2"}}
+    <h1>Welcome to my awesome site</h1>
 
 {{end}}
+
+{{define "yield"}}
+    {{if .User}}
+        <h1>Welcome back</h1>
+    {{else}}
+        <h1>This is an Instagram-clone</h1>
+    {{end}}
+{{end}}
+

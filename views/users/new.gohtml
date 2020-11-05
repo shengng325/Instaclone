@@ -15,7 +15,7 @@
 {{end}}
 
 
-{{define "signupForm"}}
+{{define "signupForm2"}}
 <form action="/signup" method="POST">
 {{csrfField}}
 <div class="form-group">
@@ -38,6 +38,11 @@
 {{end}}
 
 {{define "yield"}}
+    {{template "signupForm" .Yield}}
+{{end}}
+
+
+{{define "signupForm"}}
     <div class="container-fluid main-container">
         <div class="form-container">
             <div class="form-paper">
