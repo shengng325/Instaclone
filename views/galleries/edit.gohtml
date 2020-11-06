@@ -56,7 +56,7 @@
 {{end}}
 
 {{define "deleteGalleryForm"}}
-<form action="/galleries/{{.ID}}/delete" method="POST"
+<form action="/galleries/{{.ID}}/delete" method="GET"
   class="form-horizontal">
   {{csrfField}}
   <div class="form-group">
@@ -97,7 +97,7 @@
 
 {{define "deleteImageForm"}}
 <form action="/galleries/{{.GalleryID}}/images/{{.Filename | urlquery}}/delete"
-  method="POST">
+  method="GET">
   {{csrfField}}
   <button type="submit" class="btn btn-default btn-delete">
     Delete

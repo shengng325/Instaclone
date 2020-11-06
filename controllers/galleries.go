@@ -176,13 +176,6 @@ func (g *Galleries) ImageUpload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// url, err := g.r.Get(IndexGalleries).URL()
-		// if err != nil {
-		// 	http.Redirect(w, r, "/", http.StatusFound)
-		// 	return
-		// }
-		// http.Redirect(w, r, url.Path, http.StatusFound)
-
 	}
 
 	vd.Alert = &views.Alert{
