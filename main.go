@@ -48,15 +48,16 @@ func main() {
 		User: userMw,
 	}
 
-	r.Handle("/", staticC.Home).Methods("GET")
+	// r.Handle("/", staticC.Home).Methods("GET")
+	r.HandleFunc("/", staticC.HomeRedirect).Methods("GET")
 	r.Handle("/contact", staticC.Contact).Methods("GET")
 	r.HandleFunc("/signup", usersC.Signup).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	r.Handle("/login", usersC.LoginView).Methods("GET")
 	r.HandleFunc("/login", usersC.Login).Methods("POST")
-	r.Handle("/logout",
+	r.HandleFunc("/logout",
 		requireUserMw.ApplyFn(usersC.Logout)).
-		Methods("POST")
+		Methods("GET")
 
 	r.Handle("/galleries",
 		requireUserMw.ApplyFn(galleriesC.Index)).Methods("GET")

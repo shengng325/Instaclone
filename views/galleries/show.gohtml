@@ -20,51 +20,51 @@
 </div>
 {{end}}
 
+{{define "yield"}}
 
+{{end}}
 
 {{define "yield"}}
+    {{$userName := .User.Name}}
     <div class="index-body">
             <div class="index-left">
                 <div class="stories">
                     <div class="story">
                         <div class="user-image">
-                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            <img src="../../assets/images/avatar.jpg" alt="">
                         </div>
                         <div class="user-name">
-                            <p>alicesaraott</p>
+                            <p>{{$userName}}</p>
                         </div>
                     </div>
                     <div class="story">
                         <div class="user-image">
-                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            <img src="../../assets/images/impostor.png" alt="impostor">
                         </div>
                         <div class="user-name">
-                            <p>alicesaraott</p>
+                            <p>coming_soon</p>
                         </div>
                     </div>
                     <div class="story">
                         <div class="user-image">
-                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            <img src="../../assets/images/impostor.png" alt="impostor">
                         </div>
                         <div class="user-name">
-                            <p>alicesaraott</p>
+                            <p>coming_soon</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="photo-posts">
-                    {{range .Yield.ImagesSplitN 3}}
-                        {{range .}}
-                        {{/* <a href="{{.Path}}">
-                            <img src="{{.Path}}" class="thumbnail">
-                        </a> */}}
+                    {{range .Yield.Images}}
+                        {{/* {{range .}} */}}
                             <div class="post">
                                 <div class="card-header">
                                     <div class="user-image">
-                                        <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                                        <img src="../../assets/images/avatar.jpg" alt="">
                                     </div>
                                     <div class="user-name">
-                                        <p>alicesaraott</p>
+                                        <p>{{$userName}}</p>
                                     </div>
                                 </div>
                                 <div class="card-image">
@@ -83,16 +83,17 @@
                                     </button>
                                 </div>
                                 <div class="card-captions">
-                                    <p><span> alicesaraott</span>
-                                        About last weekend.
-                                        We played four times for 200 people per concert at the #FestivalDerNationen 
-                                        - These concerts happened because of the heartblood, energy and 
-                                        countless conversations the festival team invested under the most difficult circumstances.
-                                        We are still in a state of emergency and it would be wrong and ignorant to assume that the 
-                                        concerts that happen these days mean that we are gradually moving back to normality. </p>
+                                    <p><span>{{$userName}}</span>
+                                        How to take amazing shot? Lighting!<br>
+                                        Lightning is the foundation of a good photo. 
+                                        Understanding how to use light is the first and most important rule of getting great photos.
+                                        The ultimate pro tip for taking photos? The golden hour! 
+                                        This time of day, when the sun is low on the horizon, makes every photo more beautiful. 
+                                        It&#39;s nature&#39;s Instagram filter.
+                                    </p>
                                 </div>
                             </div>
-                        {{end}}
+                        {{/* {{end}} */}}
                     {{end}}
                     <div class="post">
                         <div class="card-header">
@@ -133,14 +134,14 @@
             <div class="index-right">
                 <div class="user-profile">
                     <div class="user-image">
-                        <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                        <img src="../../assets/images/avatar.jpg" alt="">
                     </div>
                     <div class="user-name">
-                        <h5>alicesaraott</h5>
-                        <p>Alice Sara Ott</p>
+                        <h5>{{$userName}}</h5>
+                        <p>{{.User.Email}}</p>
                     </div>
                     <div class="btn-to-profile">
-                        <a href="/galleries/1"> Go to profile </a>
+                        <a href="/galleries"> Go to profile </a>
                     </div>
                 </div>
                 <div class="user-suggestion">
@@ -150,38 +151,41 @@
                     <p>No suggestion for you now :(</p>
                     <div class="suggestion-profile">
                         <div class="user-image">
-                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#a673d5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                            {{/* <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt=""> */}}
                         </div>
                         <div class="user-name">
-                            <h5>alicesaraott</h5>
-                            <p>Alice Sara Ott</p>
+                            <h5>anonymous</h5>
+                            <p>Not available now</p>
                         </div>
                         <div class="btn-to-profile">
-                            <a href="#"> Follow </a>
+                            <a href="javascript:void(0)"> Follow </a>
                         </div>
                     </div>
                     <div class="suggestion-profile">
                         <div class="user-image">
-                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#a673d5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                            {{/* <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt=""> */}}
                         </div>
                         <div class="user-name">
-                            <h5>alicesaraott</h5>
-                            <p>Alice Sara Ott</p>
+                            <h5>anonymous</h5>
+                            <p>Not available now</p>
                         </div>
                         <div class="btn-to-profile">
-                            <a href="#"> Follow </a>
+                            <a href="javascript:void(0)" disabled> Follow </a>
                         </div>
                     </div>
                     <div class="suggestion-profile">
                         <div class="user-image">
-                            <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#a673d5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                            {{/* <img src="https://instagram.fkul3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/36113499_2169101876681069_4902719092667973632_n.jpg?_nc_ht=instagram.fkul3-1.fna.fbcdn.net&_nc_ohc=mQe6rgWEtXsAX_7kHDP&oh=8016db4ff8d36b8a71055c54b131f7de&oe=5FCBDA52" alt=""> */}}
                         </div>
                         <div class="user-name">
-                            <h5>alicesaraott</h5>
-                            <p>Alice Sara Ott</p>
+                            <h5>anonymous</h5>
+                            <p>Not available now</p>
                         </div>
                         <div class="btn-to-profile">
-                            <a href="#"> Follow </a>
+                            <a href="javascript:void(0)"> Follow </a>
                         </div>
                     </div>
                 </div>

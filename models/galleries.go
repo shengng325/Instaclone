@@ -36,6 +36,10 @@ func (g *Gallery) ImagesSplitN(n int) [][]Image {
 	return ret
 }
 
+func (g *Gallery) GetNumberOfImages() int {
+	return len(g.Images)
+}
+
 func NewGalleryService(db *gorm.DB) GalleryService {
 	return &galleryService{
 		GalleryDB: &galleryValidator{
