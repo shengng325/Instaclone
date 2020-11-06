@@ -1,4 +1,12 @@
 {{define "yield"}}
-    <h1>Welcome to my awewsome site</h1>
-
+    <div class="home-container">
+        {{if .User}}
+            <h1>Welcome back!</h1>
+        {{else}}
+            <h1>This is an Instagram-clone, built with Golang and PostgreSQL.</h1>
+            <h1>It is merely built as a fun side project. More features will be added in the future!</h1>
+            <h1>Of course, if you want to reach me out, find me at github.com/shengng325</h1>
+        {{end}}
+    </div>
 {{end}}
+

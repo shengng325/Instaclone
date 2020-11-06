@@ -1,6 +1,7 @@
 *.o
 images/**
 assets/images/**
+exp/**
 
 ### Go ###
 # Binaries for programs and plugins
@@ -22,3 +23,4 @@ assets/images/**
 .config
 notes/**
 .vscode/**
+

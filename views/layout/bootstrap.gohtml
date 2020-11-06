@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UseGolang.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram-clone</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/styles.css" rel="stylesheet">
   </head>
@@ -10,20 +11,19 @@
   <body>
     {{template "navbar" .}}
 
-    <div class="container-fluid">
+    <div class="container-fluid main-container">
         {{if .Alert}}
             {{template "alert" .Alert}}
         {{end}}
-
-        {{template "yield" .Yield}}
+        {{template "yield" .}}
+    </div>
+    <div class="container-fluid footer-container">
         {{template "footer"}}
     </div>
 
     <!-- jquery & Bootstrap JS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-    </script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
 {{end}}

@@ -26,9 +26,10 @@ type Alert struct {
 }
 
 type Data struct {
-	Alert *Alert
-	User  *models.User
-	Yield interface{}
+	Alert  *Alert
+	User   *models.User
+	Yield  interface{}
+	Addons interface{}
 }
 
 func (d *Data) SetAlert(err error) {

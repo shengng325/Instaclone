@@ -1,38 +1,32 @@
 {{define "yield"}}
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Sign Up Now!</h3>
-      </div>
-      <div class="panel-body">
-        {{/* {{template "signupForm"}} */}}
-        {{template "signupForm" .}}
-      </div>
-    </div>
-  </div>
-</div>
+    {{template "signupForm" .Yield}}
 {{end}}
 
 
 {{define "signupForm"}}
-<form action="/signup" method="POST">
-{{csrfField}}
-<div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" name="name" class="form-control"
-      id="name" placeholder="Your full name"
-      value="{{.Name}}">
-  </div>
-  <div class="form-group">
-    <label for="email">Email address</label>
-     <input type="email" name="email" class="form-control"
-      id="email" placeholder="Email" value="{{.Email}}">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Sign Up</button>
-</form>
+        <div class="form-container">
+            <div class="form-paper">
+                <div class="login-paper">
+                    <div class="form-header">
+                        <img src="../../assets/images/1280px-Instagram_logo.svg.png" alt="logo" loading="lazy">
+                    </div>
+                    <form action="/signup" method="POST">
+                        {{csrfField}}
+                        <div class="form-group">
+                            <input type="name" name="name" class="form-control" id="name" placeholder="Username" value="{{.Name}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{.Email}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+                    </form>
+                </div>
+                <div class="alt-prompt">
+                    <h5>Have an account? <a href="/login">Log in</a></h5>
+                </div>
+            </div>
+        </div>
 {{end}}

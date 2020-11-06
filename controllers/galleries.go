@@ -57,8 +57,15 @@ func (g *Galleries) Index(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Something went wrong.", http.StatusInternalServerError)
 		return
 	}
+	total := 0
+	for i, gallery := range galleries {
+		images, _ := g.is.ByGalleryID(gallery.ID)
+		galleries[i].Images = images
+		total += len(images)
+	}
 	var vd views.Data
 	vd.Yield = galleries
+	vd.Addons = total
 	g.IndexView.Render(w, r, vd)
 }
 
@@ -67,10 +74,16 @@ func (g *Galleries) Show(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-
+	user := context.User(r.Context())
 	var vd views.Data
+
+	if gallery.UserID != user.ID {
+		g.galleryRedirect(w, r)
+	}
+
 	vd.Yield = gallery
 	g.ShowView.Render(w, r, vd)
+
 }
 
 // GET /galleries/:id/edit
@@ -163,13 +176,6 @@ func (g *Galleries) ImageUpload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// url, err := g.r.Get(IndexGalleries).URL()
-		// if err != nil {
-		// 	http.Redirect(w, r, "/", http.StatusFound)
-		// 	return
-		// }
-		// http.Redirect(w, r, url.Path, http.StatusFound)
-
 	}
 
 	vd.Alert = &views.Alert{
@@ -237,7 +243,7 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url, err := g.r.Get(ShowGallery).URL("id",
+	url, err := g.r.Get(EditGallery).URL("id",
 		strconv.Itoa(int(gallery.ID)))
 	if err != nil {
 		log.Println(err)
@@ -303,4 +309,15 @@ func (g *Galleries) galleryByID(w http.ResponseWriter,
 	gallery.Images = images
 
 	return gallery, nil
+}
+
+func (g *Galleries) galleryRedirect(w http.ResponseWriter, r *http.Request) {
+	user := context.User(r.Context())
+	galleries, _ := g.gs.ByUserID(user.ID)
+	if len(galleries) > 0 {
+		galleryId := galleries[0].ID
+		http.Redirect(w, r, "/galleries/"+strconv.Itoa(int(galleryId)), http.StatusFound)
+	} else {
+		http.Redirect(w, r, "/galleries", http.StatusFound)
+	}
 }
