@@ -103,7 +103,7 @@ func (u *User) Login(w http.ResponseWriter, r *http.Request) {
 		u.LoginView.Render(w, r, vd)
 		return
 	}
-	http.Redirect(w, r, "/galleries/1", http.StatusFound)
+	http.Redirect(w, r, "/", http.StatusFound)
 
 	//fmt.Fprintln(w, user)
 }
