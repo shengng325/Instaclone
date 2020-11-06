@@ -19,21 +19,16 @@ func (g *Gallery) ImagesSplitN(n int) [][]Image {
 	for i := 0; i < n; i++ {
 		ret[i] = make([]Image, 0)
 	}
-	// Iterate over our images, using the index % n to determine
-	// which of the slices in ret to add the image to.
+
 	for i, img := range g.Images {
-		// % is the remainder operator in Go
-		// eg:
-		//    0%3 = 0
-		//    1%3 = 1
-		//    2%3 = 2
-		//    3%3 = 0
-		//    4%3 = 1
-		//    5%3 = 2
 		bucket := i % n
 		ret[bucket] = append(ret[bucket], img)
 	}
 	return ret
+}
+
+func (g *Gallery) GetNumberOfImages() int {
+	return len(g.Images)
 }
 
 func NewGalleryService(db *gorm.DB) GalleryService {

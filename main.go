@@ -38,7 +38,7 @@ func main() {
 
 	r := mux.NewRouter()
 
-	staticC := controllers.NewStatic()
+	staticC := controllers.NewStatic(services.Gallery)
 	usersC := controllers.NewUsers(services.User)
 	galleriesC := controllers.NewGalleries(services.Gallery, services.Image, r)
 	userMw := middleware.User{
@@ -48,15 +48,16 @@ func main() {
 		User: userMw,
 	}
 
-	r.Handle("/", staticC.Home).Methods("GET")
+	// r.Handle("/", staticC.Home).Methods("GET")
+	r.HandleFunc("/", staticC.HomeRedirect).Methods("GET")
 	r.Handle("/contact", staticC.Contact).Methods("GET")
 	r.HandleFunc("/signup", usersC.Signup).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	r.Handle("/login", usersC.LoginView).Methods("GET")
 	r.HandleFunc("/login", usersC.Login).Methods("POST")
-	r.Handle("/logout",
+	r.HandleFunc("/logout",
 		requireUserMw.ApplyFn(usersC.Logout)).
-		Methods("POST")
+		Methods("GET")
 
 	r.Handle("/galleries",
 		requireUserMw.ApplyFn(galleriesC.Index)).Methods("GET")
@@ -71,13 +72,13 @@ func main() {
 	r.HandleFunc("/galleries/{id:[0-9]+}/update",
 		requireUserMw.ApplyFn(galleriesC.Update)).Methods("POST")
 	r.HandleFunc("/galleries/{id:[0-9]+}/delete",
-		requireUserMw.ApplyFn(galleriesC.Delete)).Methods("POST")
+		requireUserMw.ApplyFn(galleriesC.Delete)).Methods("GET")
 	r.HandleFunc("/galleries/{id:[0-9]+}/images",
 		requireUserMw.ApplyFn(galleriesC.ImageUpload)).
 		Methods("POST")
 	r.HandleFunc("/galleries/{id:[0-9]+}/images/{filename}/delete",
 		requireUserMw.ApplyFn(galleriesC.ImageDelete)).
-		Methods("POST")
+		Methods("GET")
 
 	// Image routes
 	imageHandler := http.FileServer(http.Dir("./images/"))
