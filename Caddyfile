@@ -1,4 +1,4 @@
-128.199.181.93 {
+www.instaclone.ngtingsheng.com {
     gzip
     reverse_proxy localhost:3000
 }
