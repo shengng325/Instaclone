@@ -1,4 +1,4 @@
-instaclone.ngtingsheng.com {
-    encode gzip
+www.instaclone.ngtingsheng.com {
+    gzip
     reverse_proxy localhost:3000
 }
