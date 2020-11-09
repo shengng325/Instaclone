@@ -1,6 +1,4 @@
 128.199.181.93 {
     gzip
-    proxy / localhost:3000 {
-        transparent
-    }
+    reverse_proxy localhost:3000
 }
