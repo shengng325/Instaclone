@@ -1,6 +1,5 @@
 *.o
 images/**
-assets/images/**
 exp/**
 
 ### Go ###
