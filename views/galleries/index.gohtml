@@ -69,12 +69,11 @@
         <section class="profile-pictures">
             <div class="grid-container">
                 {{range .Yield}}
-                    {{range .ImagesSplitN 3}}
-                    {{range .}}
-                    <a href="{{.Path}}">
+                    {{$galleryID := .ID}}
+                    {{range .Images}}
+                    <a href="/galleries/{{$galleryID}}">
                         <img src="{{.Path}}" class="thumbnail">
                     </a>
-                    {{end}}
                     {{end}}
                 {{end}}
             </div>

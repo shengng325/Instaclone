@@ -278,6 +278,25 @@ padding-top: 60px;
     border-radius: 3px;
     background: white;
     padding: 15px 10px 10px;
+    overflow: scroll;
+}
+
+.index-body .index-left .stories::-webkit-scrollbar
+{
+    width: 0px;
+    height: 6px;
+}
+
+.index-body .index-left .stories::-webkit-scrollbar-track
+{
+	border-radius: 3px;
+	background-color: #F4F4F4;
+}
+
+.index-body .index-left .stories::-webkit-scrollbar-thumb
+{
+	border-radius: 3px;
+	background-color: #DDD;
 }
 
 .index-body .index-left .stories .story {
@@ -286,6 +305,7 @@ padding-top: 60px;
     justify-content: center;
     align-items: center;
     margin: 0px 10px;
+    flex-shrink: 0;
 }
 
 .index-body .index-left .stories .story .user-image {
@@ -294,6 +314,19 @@ padding-top: 60px;
     background: white;
     border: 3px solid tomato;
     margin-bottom: 5px;
+    position: relative;
+}
+
+.index-body .index-left .stories .story.disabled .user-image::before {
+    content: "";
+    position: absolute;
+    max-width: 70px;
+    max-height: 70px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: .6;
+    background: white;
 }
 
 .index-body .index-left .stories .story img {
@@ -301,6 +334,8 @@ padding-top: 60px;
     max-height: 70px;
     width: 100%;
     height: 100%;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
 }
 
@@ -309,6 +344,12 @@ padding-top: 60px;
     color: black;
     font-size: 12.5px;
     font-weight: 600;
+}
+
+.index-body .index-left .stories .story.disabled p:hover {
+    cursor: default;
+    color: #8E8E8E;
+    text-decoration: line-through;
 }
 
 .index-body .index-left .photo-posts {
@@ -375,6 +416,14 @@ padding-top: 60px;
     min-width: 50px;
 }
 
+.index-body .index-left .photo-posts .post .card-button .love-fill-icon {
+    display: inline-block;
+}
+
+.index-body .index-left .photo-posts .post .card-button .love-fill-icon {
+    display: none;
+}
+
 .index-body .index-left .photo-posts .post .card-captions {
     font-size: 14px;
     color: black;
@@ -402,10 +451,25 @@ padding-top: 60px;
     }
 }
 
-@media only screen and (max-width: 500px) {
-    .index-body .index-right {
-        display: none;
+@media only screen and (max-width: 768px) {
+    .profile-body .profile-info {
+        flex-direction: column;
     }
+
+    .profile-body .profile-info .info-right{
+        align-items: center;
+    }
+    .profile-body .profile-info .info-right h4 {
+        padding: 0px 20px;
+    }
+
+    .profile-body .profile-info .info-right p {
+        padding: 0px 20px;
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
     .index-body .index-left .photo-posts .post .card-image {
         max-height: 400px;
     }
@@ -415,14 +479,6 @@ padding-top: 60px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-}
-
-.index-body .index-right .user-profile .user-image {
-    /* border-radius: 50%;
-    padding: 1px;
-    background: white;
-    border: 3px solid tomato;
-    margin-bottom: 5px; */
 }
 
 .index-body .index-right .user-profile img {
@@ -480,9 +536,10 @@ padding-top: 60px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
 }
 
-.index-body .index-right .suggestion-profile .user-image {
+.index-body .index-right .suggestion-profile .user-image::after {
     /* border-radius: 50%;
     padding: 1px;
     background: white;
@@ -496,6 +553,19 @@ padding-top: 60px;
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.index-body .index-right .suggestion-profile .user-image::before {
+    content: "";
+    position: absolute;
+    max-width: 50px;
+    max-height: 50px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: .5;
+    background: white;
 }
 
 .index-body .index-right .suggestion-profile .user-name {
