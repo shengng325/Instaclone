@@ -3,11 +3,9 @@ $( document ).ready(function() {
     loveBtn.click(function(){
         btn = $(this).children()
         if (btn[0].style.display != "none") {
-            console.log("1st")
             btn[0].style.display = "none"
             btn[1].style.display = "inline-block"
         } else {
-            console.log("2nd")
             btn[0].style.display = "inline-block"
             btn[1].style.display = "none" 
         }
@@ -23,25 +21,21 @@ $( document ).ready(function() {
         if (e.deltaY > 0) {
             value +=70
             if (value > maxValue) value = maxValue
-            console.log("cur:", stories.scrollLeft)
-            console.log("target", value)
-            $({someValue: stories.scrollLeft}).animate({someValue: value}, {
-                duration: 200,
+            $({leftScrollValue: stories.scrollLeft}).animate({leftScrollValue: value}, {
+                duration: 100,
                 easing:'linear',
                 step: function() {
-                    stories.scrollLeft = this.someValue;
+                    stories.scrollLeft = this.leftScrollValue;
                 }
             });
         } else {
             value -=70
             if (value < minValue) value = minValue
-            console.log("cur:", stories.scrollLeft)
-            console.log("target", value)
-            $({someValue: stories.scrollLeft}).animate({someValue: value}, {
-                duration: 200,
+            $({leftScrollValue: stories.scrollLeft}).animate({leftScrollValue: value}, {
+                duration: 100,
                 easing:'linear',
                 step: function() {
-                    stories.scrollLeft = this.someValue;
+                    stories.scrollLeft = this.leftScrollValue;
                 }
             });
         }
