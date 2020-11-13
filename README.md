@@ -11,7 +11,7 @@ Check it out at https://instaclone.ngtingsheng.com/.<br/>
 
 
 ## Deployment
-The application is currently deployed to Digital Ocean, running on top of Caddy web server. Caddy web server has multiple advantages: it is easy to configure, provides HTTP/2 support and also have a conveneint SSL configuration with Let’s Encrypt. Therefore, these are the reason I am using it instead of the more common ones like Nginx or Apache. 
+The application is currently deployed to Digital Ocean, running on top of Caddy web server. Caddy web server is an open source web server with multiple advantages: it is easy to configure, provides HTTP/2 support and also have a conveneint SSL configuration with Let’s Encrypt. Therefore, these are the reason I am using it instead of the more common ones like Nginx or Apache. 
 
 ## Todo list
 While Instagram is a LARGE application. It may take a serious amount of time to build up the entire thing. Here is a list of todos to keep track of my progress.
@@ -36,4 +36,5 @@ While Instagram is a LARGE application. It may take a serious amount of time to 
 - [ ] Mailgun for email services
 - [ ] Resetting user password
 - [ ] Caption for each image
-- [ ] Follower and following function
+- [ ] Followers and following function
+- [ ] Index page that shows gallery images from "followings"
