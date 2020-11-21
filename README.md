@@ -22,6 +22,7 @@ While Instagram is a LARGE application. It may take a serious amount of time to 
 - [x] Securing from Cross site scripting (XSS)
 - [x] Securing server with SSL(https)
 - [x] Removing configuration and environment files from code base
+- [ ] Exploring and learning more security features to add in
 
 
 ### Features
@@ -38,3 +39,5 @@ While Instagram is a LARGE application. It may take a serious amount of time to 
 - [ ] Caption for each image
 - [ ] Followers and following function
 - [ ] Index page that shows gallery images from "followings"
+
+#### Last update on: 21/11/2020
