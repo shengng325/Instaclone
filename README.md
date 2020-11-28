@@ -35,9 +35,11 @@ While Instagram is a LARGE application. It may take a serious amount of time to 
 - [x] Render dynamic notification alerts
 - [x] Redirect URL to improve user experience
 - [ ] Mailgun for email services
+- [ ] Email verification on signup
 - [ ] Resetting user password
 - [ ] Caption for each image
 - [ ] Followers and following function
 - [ ] Index page that shows gallery images from "followings"
+- [ ] Allow short videos at Stories
 
 #### Last update on: 21/11/2020
