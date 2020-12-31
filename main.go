@@ -14,6 +14,7 @@ import (
 	"lenslocked.com/rand"
 )
 
+// main program starts here
 func main() {
 	boolPtr := flag.Bool("prod", false, "Provide this flag "+
 		"in production. This ensures that a .config file is "+
