@@ -222,6 +222,12 @@ padding-top: 60px;
     padding: 40px 30px;
     flex-grow: 1;
 }
+
+.form-container .form-paper .login-paper .form-warning h5{
+    font-style: italic;
+}
+
+
 .form-container .form-paper .login-paper .form-header{
     display: flex;
     justify-content: center;
@@ -230,6 +236,13 @@ padding-top: 60px;
     padding: 0px 10px;
     margin-bottom: 30px;
 }
+
+.form-container .form-paper .login-paper .form-header h1{
+    font-size: 40px;
+    font-style: italic;
+    font-weight: 700;
+}
+
 
 .form-container .form-paper .login-paper .form-header img{
     text-align: center;
